@@ -1,7 +1,7 @@
 from cv2  import cv2
 import numpy as np
 
-cuadrado = np.zeros((600,600),dtype=np.uint8)
+cuadrado = np.zeros((700,700),dtype=np.uint8)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
 

@@ -1,0 +1,24 @@
+Hasta el momento se esta trabajando en el reconocimiento de las imagenes, asi como la creacion de la imagen virtual de la cara.
+Para eso, se realiza la imagen de 600x600 pixeles para cada cara y se pinta de blanco. Esto sucede en el archivo llamado "caras.py"
+En el archivo "modificador le podemos dar los colores que desemos a los nueve puntos que deseamos.
+
+Falta leer los 9 puntos que hay en la imagen, y hacer la rutina para ponerlos en dichas caras.
+Tenemos que hacer variables con los tonos de color que deseamos.
+Naranja, Blanco, Azul, Amarillo, Verde, Rojo
+Blanco=[255,255,255]
+Azul=[255,0,0]
+Verde=[0,255,0]
+Rojo=[255,255,255]
+Naranja=[0,128,255]
+Amarillo=[0,233,255]
+
+
+
+Ayuda para detectar los colores con la imagen del HSV
+The x-axis represents Hue in [0,180), the y-axis1 represents Saturation in [0,255], the y-axis2 represents S = 255, while keep V = 255.
+
+To find a color, usually just look up for the range of H and S, and set v in range(20, 255).
+
+To find the orange color, we look up for the map, and find the best range: H :[10, 25], S: [100, 255], and V: [20, 255]. So the mask is cv2.inRange(hsv,(10, 100, 20), (25, 255, 255) )
+
+Then we use the found range to look for the orange color, this is the result:

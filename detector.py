@@ -1,6 +1,6 @@
 from cv2 import cv2
 import numpy as np
-
+p1, p2, p3, p4, pc, p6, p7, p8, p9
 #Funcion de dibujar contorno
 def dibujar(mask,color):
   contornos,_ = cv2.findContours(mask, cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)

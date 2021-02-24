@@ -1,8 +1,10 @@
 from cv2  import cv2
 import numpy as np
 import configuracion
-rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3, ncara=configuracion.rangos()
+ncara=configuracion.nombre_caras()
+rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3=configuracion.rangos()
 Blanco, Azul, Verde, Rojo, Amarillo, Naranja=configuracion.colores_basic()
+p1, p2, p3, p4, pc, p6, p7, p8, p9=
 
 cara = cv2.imread('Cara_top.jpg')
 
@@ -20,5 +22,6 @@ cara[rangex2:rangex3,:rangey1] = Azul
 cara[rangex2:rangex3,rangey1:rangey2] = Verde
 cara[rangex2:rangex3,rangey2:rangey3] = Rojo
 cv2.imshow('Cara_',cara)
+cv2.imwrite('Cara_'+ ncara[0]+'.jpg', cara)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

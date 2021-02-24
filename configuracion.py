@@ -1,14 +1,17 @@
 def rangos():
-    rangex=600
-    rangey=600
+    rangex=150
+    rangey=150
     rangex1 = int(rangex/3)
     rangex2 = int(2*rangex/3)
     rangex3 = rangex
     rangey1 = int(rangey/3)
     rangey2 = int(2*rangey/3)
     rangey3 = rangey
+    
+    return rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3
+def nombre_caras():
     ncara=['top', 'bottom', 'left', 'right', 'front', 'back']
-    return rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3, ncara
+    return ncara
 def colores_basic():
 #colores de caras
     Blanco=[255,255,255]

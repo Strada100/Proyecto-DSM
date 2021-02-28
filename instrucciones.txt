@@ -13,7 +13,7 @@ Naranja=[0,128,255]
 Amarillo=[0,233,255]
 
 
-
+23/02/2021
 Ayuda para detectar los colores con la imagen del HSV
 The x-axis represents Hue in [0,180), the y-axis1 represents Saturation in [0,255], the y-axis2 represents S = 255, while keep V = 255.
 
@@ -22,3 +22,86 @@ To find a color, usually just look up for the range of H and S, and set v in ran
 To find the orange color, we look up for the map, and find the best range: H :[10, 25], S: [100, 255], and V: [20, 255]. So the mask is cv2.inRange(hsv,(10, 100, 20), (25, 255, 255) )
 
 Then we use the found range to look for the orange color, this is the result:
+
+
+24/02/2021
+Podemos dejar de buscar eñ color blanco. Solo dejamos el background de color blanco.
+El programa tiene que ejecutarse desde el principio, por lo que se crearian nuevas plantillas.
+
+"""Guardar codigo por si acaso
+#El array toma valores de HSV ---> H=Matiz (0 a 179)   S=Saturacion (0 a 255)  V=Brillo  (0 a 255)
+RedBajo1=np.array([161, 155, 150], np.uint8)
+RedAlto1=np.array([180, 255, 255], np.uint8)
+RedBajo2=np.array([0, 155, 150], np.uint8)
+RedAlto2=np.array([5, 255, 255], np.uint8)
+#Azul
+BlueBajo=np.array([110,175,200],np.uint8)
+BlueAlto=np.array([120,255,255],np.uint8)
+#Amarillo
+YellowBajo=np.array([20,100,120],np.uint8)
+YellowAlto=np.array([45,255,255],np.uint8)
+#Verde
+GreenBajo=np.array([50,200,200],np.uint8)
+GreenAlto=np.array([65,255,255],np.uint8)
+#Naranja
+OrangeBajo=np.array([10,200,20],np.uint8)
+OrangeAlto=np.array([20,255,255],np.uint8)
+#Blanco
+WhiteBajo=np.array([0,0,0],np.uint8)
+WhiteAlto=np.array([180,10,180],np.uint8)
+"""
+
+
+
+
+    for i in range(len(ncara)):
+        cara = cv2.imread('Caras digitalizadas\Cara_'+ncara[i]+'.jpg')
+        #Son los 9 cuadrados de la cara
+        #Primera fila
+        cara[:rangex1,:rangey1] = Azul
+        cara[:rangex1,rangey1:rangey2] = Rojo
+        cara[:rangex1,rangey2:rangey3] = Verde
+        #Segunda fila
+        cara[rangex1:rangex2,:rangey1] = Naranja
+        cara[rangex1:rangex2,rangey1:rangey2] = Blanco#Este es el punto central
+        cara[rangex1:rangex2,rangey2:rangey3] = Amarillo
+        #Tercera fila
+        cara[rangex2:rangex3,:rangey1] = Azul
+        cara[rangex2:rangex3,rangey1:rangey2] = Verde
+        cara[rangex2:rangex3,rangey2:rangey3] = Rojo
+        #cv2.imshow('Cara_'+ ncara[i],cara)
+        cv2.imwrite('Cara_'+ ncara[i]+'.jpg', cara)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+
+
+    #Las siguientes matrices o arrays se usaran como un rango de deteccion de colores.
+    #El array toma valores de HSV ---> H=Matiz (0 a 179)   S=Saturacion (0 a 255)  V=Brillo  (0 a 255)
+    RedBajo1=np.array([161, 120, 150], np.uint8)
+    RedAlto1=np.array([180, 255, 255], np.uint8)
+    RedBajo2=np.array([0, 120, 150], np.uint8)
+    RedAlto2=np.array([1, 255, 255], np.uint8)
+    R2_rojo=[RedBajo1,RedAlto1,RedBajo2,RedAlto2]
+    #Azul
+    BlueBajo=np.array([100,95,180],np.uint8)
+    BlueAlto=np.array([130,255,255],np.uint8)
+    R_azul=[BlueBajo,BlueAlto]
+    #Amarillo
+    YellowBajo=np.array([16,70,165],np.uint8)
+    YellowAlto=np.array([45,255,255],np.uint8)
+    R_amarillo=[YellowBajo,YellowAlto]
+    #Verde
+    GreenBajo=np.array([46,70,200],np.uint8)
+    GreenAlto=np.array([80,255,255],np.uint8)
+    R_verde=[GreenBajo,GreenAlto]
+    #Naranja
+    OrangeBajo=np.array([2,80,245],np.uint8)
+    OrangeAlto=np.array([15,255,255],np.uint8)
+    R_naranja=[OrangeBajo,OrangeAlto]
+    #Blanco
+    #El blanco no se siguio usando debido a que el fondo de la cara digitalizada es blanco.
+    #Por lo tanto, no es necesario pintarlo, solo cuidaremos de no pintarlo de otro color.
+    #WhiteBajo=np.array([0,0,230],np.uint8)
+    #WhiteAlto=np.array([180,55,255],np.uint8)

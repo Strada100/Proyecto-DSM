@@ -29,8 +29,9 @@ El hecho de trabajar con una macro nos proporcionará algunos errores de compati
 Pasos:
 Añadir una figura "xs"
 Asiganrle una macro (Oprimir el boton de "nuevo")
-![p1](https://user-images.githubusercontent.com/71536431/112432571-b58a6c00-8d06-11eb-8172-9d346d101790.png)
-![p2](https://user-images.githubusercontent.com/71536431/112432836-0a2de700-8d07-11eb-8af9-81a1dbeadf6c.png)
+![p1](https://user-images.githubusercontent.com/71536431/112435047-d99b7c80-8d09-11eb-80c4-50d3615122a7.png)
+![p2](https://user-images.githubusercontent.com/71536431/112435049-da341300-8d09-11eb-9793-dda5eae7a20f.png)
+
 
 Escribir el siguiente codigo en la macro
 			lastrow = Cells(Rows.Count, 1).End(xlUp).Row

@@ -17,7 +17,7 @@ detector_caras.recortar_puntos()
 
 #Mandar los nuevas imagenes a la base de datos. 
 #Si ya se va a probar, comentar las 2 siguientes lineas
-#base_datos.SaveHSV()
+#base_datos.SaveBGR()
 #time.sleep(15)
 #¿De qué color es mi punto?
 detector_caras.hacer_caras() #Hacer el lienzo de las imagenes digitales 

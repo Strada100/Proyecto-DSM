@@ -51,6 +51,7 @@ def modificar_caras(cara, npunto, color):
     cv2.imwrite('Caras digitalizadas\Cara_'+ cara+'.jpg', face)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
-hacer_caras()
+    
+
 
     

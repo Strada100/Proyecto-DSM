@@ -1,18 +1,26 @@
 from cv2 import cv2
 import numpy as np
 import configuracion
+import caras
+import Agente
+import pandas as pd
+import openpyxl 
 ncara=configuracion.nombre_caras()
-#p1, p2, p3, p4, pc, p6, p7, p8, p9
+Azul, Verde, Rojo, Naranja,Amarillo, Blanco=configuracion.colores_basic()
+
 def toma_fotos():
     k=0
     cap = cv2.VideoCapture(0)
+    
     #El siguiente ciclo me permite tomar las fotos de las caras.
     #Al oprimir la tecla espacio se tomara la foto y en la terminal aparecerá el mensaje
     #La foto se guardara con el nombre de la cara
 
     while True:
         ret,frame = cap.read()
+        
         if ret==True:
+            cv2.rectangle(frame,(200,100),(500,400),(0,0,255),3)
             cv2.imshow("Foto de la cara "+ncara[k],frame)
             if cv2.waitKey(1) & 0xFF == ord(' '):
                 img_name="Fotos_caras\Foto_cara_"+ncara[k]+'.jpg'
@@ -25,25 +33,26 @@ def toma_fotos():
     cap.release()
     cv2.destroyAllWindows()
 
+#toma_fotos()
 def recorta_fotos():
     k=0
     #El siguiente ciclo es para recortar las imagenes y que solo salga la cara del cubo
     #capitulo8
     for k in range(len(ncara)):
         image=cv2.imread('Fotos_caras\Foto_cara_'+ncara[k]+'.jpg')
-        print('image.shape=',image.shape)
+        #print('image.shape=',image.shape)
         #image.shape= (480, 640, 3)
-        imageOut=image[335:,260:435]
+        imageOut=image[100:400,200:500]
         cv2.imshow('Imagen de entrada',image)
         cv2.imshow('Imagen de salida',imageOut)
         img_name="Fotos_caras\Foto_cara_"+ncara[k]+'.jpg'
         cv2.imwrite(img_name, imageOut)
         print("Foto_cara_"+ncara[k]+' ha sido recortada')
         k=k+1
-        #cv2.waitKey(0)
+        cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-
+#recorta_fotos()
 
 def recortar_puntos():
     for p in range(0,6):
@@ -109,37 +118,6 @@ def recortar_puntos():
             n=0
             l=l+1   
         #cv2.destroyAllWindows()
+#recortar_puntos()
 
-def fit_colors():
-    cap = cv2.VideoCapture(0)
-    #Mando a llamr del archivo configuracion los matices a detectar
-    R2_rojo,R_azul,R_naranja,R_verde, R_amarillo=configuracion.matices()
-    Blanco, Azul, Verde, Rojo, Amarillo, Naranja=configuracion.colores_basic()
-    for n in range(1,6):
-        image=cv2.imread('Fotos_caras\Foto_cara_'+ncara[n]+'.jpg') #leemos la imagen
-        for k in range(1,9):
-            
-            frameHSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-            maskRed1 = cv2.inRange(frameHSV, R2_rojo[0], R2_rojo[1])
-            maskRed2 = cv2.inRange(frameHSV, R2_rojo[2], R2_rojo[3])
-            maskRed = cv2.add(maskRed1, maskRed2) #Como se puede ver en la imagen de HSV, el color rojo se parte
-            maskBlue = cv2.inRange(frameHSV, R_azul[0], R_azul[1])
-            maskOrange = cv2.inRange(frameHSV, R_naranja[0], R_naranja[1])
-            maskGreen = cv2.inRange(frameHSV, R_verde[0], R_verde[1])
-            maskYellow = cv2.inRange(frameHSV, R_amarillo[0], R_amarillo[1])
-            #maskWhite=cv2.inRange(frameHSV, WhiteBajo, WhiteAlto)
-            """
-            #Las siguientes lineas no son necesarias, solo se usaron para ver si detectaba correctamente los colores.
-            cv2.imshow('frame', image)
-            cv2.imshow('Azul', maskBlue)
-            cv2.imshow('Verde', maskGreen)
-            cv2.imshow('Roja', maskRed)
-            cv2.imshow('Amarilla', maskYellow)
-            cv2.imshow('Naranja', maskOrange)
-            #cv2.imshow('Blanca', maskWhite)
-            """
-    cv2.waitKey(0) 
-    cap.release()
-    cv2.destroyAllWindows()
 
-recortar_puntos()

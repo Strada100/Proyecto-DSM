@@ -25,12 +25,11 @@ def hacer_caras():
     cara[rangex2:rangex3,rangey1:rangey2] = 125
     cara[rangex2:rangex3,rangey2:rangey3] = 125
     for i in range(len(ncara)):
-        #cv2.imshow('Cara_'+ ncara[i],cara)
         cv2.imwrite('Caras digitalizadas\Cara_'+ ncara[i]+'.jpg', cara)
-        #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+
 
 def modificar_caras(cara, npunto, color):
+    #Abre la cara digital
     face = cv2.imread('Caras digitalizadas\Cara_'+cara+'.jpg')
     if npunto==1:
         face[:rangex1,:rangey1] = color
@@ -50,11 +49,9 @@ def modificar_caras(cara, npunto, color):
         face[rangex2:rangex3,rangey1:rangey2] =color
     elif npunto==9:
         face[rangex2:rangex3,rangey2:rangey3] = color
-    
-    #cv2.imshow('Cara_'+ cara,face)
+    #Guarda la cara diital
     cv2.imwrite('Caras digitalizadas\Cara_'+ cara+'.jpg', face)
-    #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
+
     
 
 def toma_fotos():
@@ -88,21 +85,16 @@ def recorta_fotos():
     #El siguiente ciclo es para recortar las imagenes y que solo salga la cara del cubo
     #capitulo8
     for k in range(len(ncara)):
+        #Abrir la foto tomada
         image=cv2.imread('Fotos_caras\Foto_cara_'+ncara[k]+'.jpg')
-        #print('image.shape=',image.shape)
-        #image.shape= (480, 640, 3)
+        #Recortar el marco donde se tomo la foto
         imageOut=image[100:400,200:500]
-        #cv2.imshow('Imagen de entrada',image)
-        #cv2.imshow('Imagen de salida',imageOut)
         img_name="Fotos_caras\Foto_cara_"+ncara[k]+'.jpg'
         cv2.imwrite(img_name, imageOut)
         #print("Foto_cara_"+ncara[k]+' ha sido recortada')
         k=k+1
-        #cv2.waitKey(0)
-    #cv2.destroyAllWindows()
 
 #recorta_fotos()
-
 def recortar_puntos():
     for p in range(0,6):
         image=cv2.imread('Fotos_caras\Foto_cara_'+ncara[p]+'.jpg')
@@ -174,16 +166,22 @@ def Pintar_caras():
     for c in range(0,6):
             cara=ncara[c]
             for npunto in range(1,10):
-                punto=cv2.imread('Fotos_caras\Puntos\cara_'+ncara[c]+'\C_'+ncara[c]+'_P_'+str(npunto)+'.jpg') 
-                frameHSV = cv2.cvtColor(punto, cv2.COLOR_BGR2HSV)
+                punto=cv2.imread('Fotos_caras\Puntos\cara_'+ncara[c]+'\C_'+ncara[c]+'_P_'+str(npunto)+'.jpg')
+                #Se va a leer el color más frecuente de la imagen para compararlo con alguno de la base de datos 
                 colors, count = np.unique(punto.reshape(-1, punto.shape[-1]), axis=0, return_counts=True)
                 Primer_color=colors[np.argsort(-count)][:1]
-                ArrayHSV=Primer_color[0]
+                ArrayBGR=Primer_color[0]
+                #Se normalizan los valores de la base de datos
                 (DataNorm,MRange)=Agente.NormalData(Agente.DatabaseRead())
-                r=Agente.Agente(ArrayHSV,DataNorm, MRange) 
-                colores=[Blanco,Amarillo,Azul,Verde,Rojo,Naranja]
+                #se manda al Agente para que encuentre una coicidencia, y desnormaliza el resultado para encontrar una coicidencia del 1-6
+                #Los cuales, cada uno hace referencia a un color
+                r=Agente.Agente(ArrayBGR,DataNorm, MRange) 
+                #Matices de la cara digitales
+                colores=[Blanco,Amarillo,Azul,Verde,Rojo,Naranja] 
+                #Color en formato string
                 String_Colores=["Blanco","Amarillo","Azul","Verde","Rojo","Naranja"]
                 
+                #Se buscara la coicidencia del color del punto con la base, y se procedera a colorear el punto
                 find=False
                 t=1
                 while find==False:

@@ -1,4 +1,5 @@
 import numpy as np
+#Estos rangos son de las caras digitales.
 def rangos():
     rangex=150
     rangey=150

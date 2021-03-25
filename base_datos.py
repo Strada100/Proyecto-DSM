@@ -5,37 +5,34 @@ import detector_caras
 import pandas as pd
 from openpyxl import Workbook, load_workbook 
 ncara=configuracion.nombre_caras()
+#La siguiente instruccion contiene unos valores puestos a mano en la configuracion.py
 colores_puntos=configuracion.colores_finales()
-#Mando a llamar del archivo configuracion los matices a detectar
-#R2_rojo,R_azul,R_naranja,R_verde, R_amarillo, R_blanco=configuracion.matices()
+#La siguiente instruccion contiene los tonos en formato BGR que deberan tener los puntos digitales
 Azul, Verde, Rojo, Naranja,Amarillo, Blanco=configuracion.colores_basic()
 
-def SaveHSV():
-    wb=load_workbook('Base_Colores.xlsx')
-    ws=wb['Recepcion']
-    indice=1136
+def SaveBGR():
+    wb=load_workbook('Base_Colores.xlsx') #Abrir la base de datos
+    ws=wb['Recepcion'] #Abrir la hoja recepcion
+    indice=1136  #Actualizar si se va a anexar más informacion a la base de datos
     for c in range(0,6):
         cara=ncara[c]
         for npunto in range(1,10):
+            #Abrir la foto del punto a analizar
             punto=cv2.imread('Fotos_caras\Puntos\cara_'+ncara[c]+'\C_'+ncara[c]+'_P_'+str(npunto)+'.jpg') 
-            #punto=cv2.imread('Fotos_caras\Puntos\cara_'+ncara[c]+'\C_'+ncara[c]+'_P_'+str(npunto)+'.jpg') 
-            #frameHSV = cv2.cvtColor(punto, cv2.COLOR_BGR2HSV)
+            #Reconocer los 5 colores más frecuentes de la imagen
             colors, count = np.unique(punto.reshape(-1, punto.shape[-1]), axis=0, return_counts=True)
-            #Primer_color=colors[np.argsort(-count)][1988:1990]
-            Primer_color=colors[np.argsort(-count)][:5]
-            for i in range(5):
-                B=Primer_color[i][0]
-                G=Primer_color[i][1]
-                R=Primer_color[i][2]
-                ws['A'+str(indice)]=B
+            #Guardar los 5 colores en la variable 
+            Colores_imagen=colors[np.argsort(-count)][:5]
+            for i in range(5): #Separar la info del color detectado en el formato BGR
+                B=Colores_imagen[i][0] #Acceder a la componete B del color i
+                G=Colores_imagen[i][1]
+                R=Colores_imagen[i][2]
+                ws['A'+str(indice)]=B #Guardar el valor en la columna correspondiente
                 ws['B'+str(indice)]=G
                 ws['C'+str(indice)]=R
                 ws['F'+str(indice)]=colores_puntos[c]
                 indice=indice+1
-            #print(Primer_color)
-            #ws['G'+str(indice)]=colores_puntos[c][npunto]
-            #ws['G'+str(indice)]=colores_puntos[c]
-            wb.save('Base_Colores.xlsx')
+            wb.save('Base_Colores.xlsx') #guardar la base de datos
 
 #SaveHSV()
 

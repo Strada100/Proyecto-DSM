@@ -105,3 +105,25 @@ WhiteAlto=np.array([180,10,180],np.uint8)
     #Por lo tanto, no es necesario pintarlo, solo cuidaremos de no pintarlo de otro color.
     #WhiteBajo=np.array([0,0,230],np.uint8)
     #WhiteAlto=np.array([180,55,255],np.uint8)
+
+
+
+
+
+19/03/2021
+Poner circulos en fomi y pegarselos
+Aplicar lo del agente virtual para la deteccion de los colores
+Crear una base de datos donde se guarde los datos de HSV y tener como resultado el color 
+tomar varias fotos de mi cubo y sacar sus colores HSV
+
+
+23/03/2021
+Se realizó una base de datos donde se guardo los valores BGR obtenidos con el analisis de la imagen en el archivo "base de datos.py"
+Archivos del programa
+"main.py" el archivo donde se ejecutara todo el programa de reconocimiento de caras y la visualizacion de las caras digitales.
+"detector.py" corresponde al archivo que nos permite tomar fotos, recortarlas y recortar los 9 puntos de la cara.
+Tambien nos permite crear las caras digitales, asi como modificarlas.
+"concatenacion.py" nos permite visualizar el cubo en 2D
+"configuracion.py" alamacena todas las configuraciones de nuestro programa
+"base_datos.py" nos permite leer el valor de la imagen en formato BGR y alamcenarlo en una base de datos.
+"Agente.py" es el codigo correspondiente a la aprte de analisi para predecir el color que se esta visualizado a partir de los datos almacenados en la base de datos.

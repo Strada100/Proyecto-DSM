@@ -3,7 +3,7 @@ import numpy as np
 import configuracion
 ncara=configuracion.nombre_caras()
 rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3=configuracion.rangos()
-Blanco, Azul, Verde, Rojo, Amarillo, Naranja=configuracion.colores_basic()
+Azul, Verde, Rojo, Naranja,Amarillo, Blanco=configuracion.colores_basic()
 #p1, p2, p3, p4, pc, p6, p7, p8, p9=
 for i in range(len(ncara)):
     cara = cv2.imread('Caras digitalizadas\Cara_'+ncara[i]+'.jpg')

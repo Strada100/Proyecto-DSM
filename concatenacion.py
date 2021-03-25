@@ -47,14 +47,13 @@ class Imagenes:
         lbl_face_right.image=img_face_right
         lbl_face_right.place(x=327,y=175)
 
-def main():
+def plano2D():
     master=tk.Tk()
-    master.title('Ventana nueva')
+    master.title('Plano 2D cubo Rubik')
     master.geometry('650x500')
     ventana=Imagenes(master)
     master.mainloop()
 
 
-if __name__=="__main__":
-    main()
+
     

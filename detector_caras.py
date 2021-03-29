@@ -8,6 +8,7 @@ ncara=configuracion.nombre_caras()
 Azul, Verde, Rojo, Naranja,Amarillo, Blanco=configuracion.colores_basic()
 rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3=configuracion.rangos()
 Colores_puntos=[""]
+Abre_caras=configuracion.Abre_caras()
 
 def hacer_caras():
     cara = np.ones((rangex,rangey),dtype=np.uint8)
@@ -31,6 +32,8 @@ def hacer_caras():
 def modificar_caras(cara, npunto, color):
     #Abre la cara digital
     face = cv2.imread('Caras digitalizadas\Cara_'+cara+'.jpg')
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    
     if npunto==1:
         face[:rangex1,:rangey1] = color
     elif npunto==2:
@@ -41,6 +44,9 @@ def modificar_caras(cara, npunto, color):
         face[rangex1:rangex2,:rangey1] = color
     elif npunto==5:
         face[rangex1:rangex2,rangey1:rangey2] = color#Este es el punto central
+        cv2.putText(face,Abre_caras[ncara.index(cara)],(65,85),font,1,(0,0,0),2,cv2.LINE_AA)
+        #cv2.putText(imagen,'Practicando con OpenCV',(10,30),font,1,(0,255,255),2,cv2.LINE_AA)
+        #cv2.putText(face,Abre_caras[ncara.index(cara)], ((rangex1+rangex2)/2,(rangey1+rangey2)/2), 2, 255)
     elif npunto==6:
         face[rangex1:rangex2,rangey2:rangey3] = color
     elif npunto==7:
@@ -161,6 +167,31 @@ def recortar_puntos():
             l=l+1   
         #cv2.destroyAllWindows()
 #recortar_puntos()
+"""
+Este es el formato en el que se va a trabajar. Las letras corresponde a la cara.
+
+             |************|
+             |*U1**U2**U3*|
+             |************|
+             |*U4**U5**U6*|
+             |************|
+             |*U7**U8**U9*|
+             |************|
+ ************|************|************|************
+ *L1**L2**L3*|*F1**F2**F3*|*R1**R2**R3*|*B1**B2**B3*
+ ************|************|************|************
+ *L4**L5**L6*|*F4**F5**F6*|*R4**R5**R6*|*B4**B5**B6*
+ ************|************|************|************
+ *L7**L8**L9*|*F7**F8**F9*|*R7**R8**R9*|*B7**B8**B9*
+ ************|************|************|************
+             |************|
+             |*D1**D2**D3*|
+             |************|
+             |*D4**D5**D6*|
+             |************|
+             |*D7**D8**D9*|
+             |************|
+"""
 
 def Pintar_caras():
     for c in range(0,6):

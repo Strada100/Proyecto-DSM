@@ -12,8 +12,12 @@ def rangos():
     
     return rangex, rangey, rangex1, rangex2, rangex3, rangey1, rangey2, rangey3
 def nombre_caras():
-    ncara=['top', 'bottom', 'left', 'right', 'front', 'back']
+    ncara=['up','right','front', 'down', 'left', 'back']
+    #ncara=['up', 'down', 'left', 'right', 'front', 'back']
     return ncara
+def Abre_caras():
+    Abre=['U','R', 'F', 'D', 'L', 'B']
+    return Abre
 def colores_basic():
 #colores de caras
     #BGR

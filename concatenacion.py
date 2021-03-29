@@ -11,25 +11,25 @@ class Imagenes:
     def inicializar_gui(self):
         Style().configure('Tframe', background='#FFF')
         #ubicar la cara top
-        img_face_top=Image.open('Caras digitalizadas\Cara_top.jpg')
+        img_face_top=Image.open('Caras digitalizadas\Cara_front.jpg')
         img_face_top=ImageTk.PhotoImage(img_face_top)
         lbl_face_top=tk.Label(self.master, image=img_face_top)
         lbl_face_top.image=img_face_top
         lbl_face_top.place(x=175,y=175)
         #ubicar la cara bottom
-        img_face_bottom=Image.open('Caras digitalizadas\Cara_bottom.jpg')
+        img_face_bottom=Image.open('Caras digitalizadas\Cara_back.jpg')
         img_face_bottom=ImageTk.PhotoImage(img_face_bottom)
         lbl_face_bottom=tk.Label(self.master, image=img_face_bottom)
         lbl_face_bottom.image=img_face_bottom
         lbl_face_bottom.place(x=479,y=175)
         #ubicar la cara back
-        img_face_back=Image.open('Caras digitalizadas\Cara_back.jpg')
+        img_face_back=Image.open('Caras digitalizadas\Cara_up.jpg')
         img_face_back=ImageTk.PhotoImage(img_face_back)
         lbl_face_back=tk.Label(self.master, image=img_face_back)
         lbl_face_back.image=img_face_back
         lbl_face_back.place(x=175,y=23)
         #ubicar la cara front
-        img_face_front=Image.open('Caras digitalizadas\Cara_front.jpg')
+        img_face_front=Image.open('Caras digitalizadas\Cara_down.jpg')
         img_face_front=ImageTk.PhotoImage(img_face_front)
         lbl_face_front=tk.Label(self.master, image=img_face_front)
         lbl_face_front.image=img_face_front
